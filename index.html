@@ -18,6 +18,8 @@ var Note = React.createClass({
         this.setState({editing: true})
     },
     save() {
+        var val = this.refs.newText.value
+        alert('This is our new value' +val)
         this.setState({editing: false})
     },    
     remove() {
@@ -26,7 +28,7 @@ var Note = React.createClass({
     renderForm() {
         return (
         <div className="note">
-                <textarea></textarea>
+                <textarea ref="newText"></textarea>
                 <button onClick={this.save}>SAVE</button>
         </div>)    
     },
