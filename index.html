@@ -49,7 +49,26 @@ var Note = React.createClass({
            }
 })
 
-ReactDOM.render(<Note>Hello World.!!</Note>, document.getElementById('react-container'))
+var Board = React.createClass({
+    propTypes: {
+     count: function(props, propName) {
+         if(typeof props[propName] !== "number") {
+             return new Error("The count must be a number")
+         }
+         if(props[propName] > 100) {
+             return new Error('creating ' + props[propName] + ' note is ridiculous')
+         }
+     }   
+    },
+    render() {
+        return (<div className='board'>
+                {this.props.count}
+    </div>
+        )
+    }
+})
+
+ReactDOM.render(<Board count={5000}/>, document.getElementById('react-container'))
 </script>
 </body>    
 </html>
