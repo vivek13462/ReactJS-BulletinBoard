@@ -60,15 +60,27 @@ var Board = React.createClass({
          }
      }   
     },
+    getInitialState() {
+        return {
+            notes: [
+                'call Max',
+                'Meeting',
+                'Proposal',
+                'Party'
+            ]
+        }
+    },
     render() {
         return (<div className='board'>
-                {this.props.count}
+                {this.state.notes.map((abc, i) => {
+                 return <Note key={i}>{abc}</Note>
+        })}
     </div>
         )
     }
 })
 
-ReactDOM.render(<Board count={5000}/>, document.getElementById('react-container'))
+ReactDOM.render(<Board count={10}/>, document.getElementById('react-container'))
 </script>
 </body>    
 </html>
