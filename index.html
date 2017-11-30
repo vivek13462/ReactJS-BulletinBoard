@@ -18,13 +18,12 @@ var Note = React.createClass({
         this.setState({editing: true})
     },
     save() {
-        var val = this.refs.newText.value
-        alert('This is our new value' +val)
-        this.setState({editing: false})
-    },    
+                this.props.onChange(this.refs.newText.value, this.props.id)
+                this.setState({editing: false})
+            },
     remove() {
-        alert("Removing Note.")
-    },
+                this.props.onRemove(this.props.id)
+            },
     renderForm() {
         return (
         <div className="note">
@@ -75,7 +74,7 @@ var Board = React.createClass({
         note => (note.id !== id)?
         note :
         {
-            ...
+            ...note,
             note: newText
         })
         this.setState({notes})
@@ -83,15 +82,20 @@ var Board = React.createClass({
     remove(id) {
         var note = this.state.notes.filter(note => note.id !== id)
         this.setState({notes})
-    }
+    },
+    eachNote(note) {
+                return (<Note key={note.id}
+                              id={note.id}
+                              onChange={this.update}
+                              onRemove={this.remove}>
+                          {note.note}
+                        </Note>)
+            },
     render() {
-        return (<div className='board'>
-                {this.state.notes.map((abc, i) => {
-                 return <Note key={i}>{abc}</Note>
-        })}
-    </div>
-        )
-    }
+                return (<div className='board'>
+                           {this.state.notes.map(this.eachNote)}
+                        </div>)
+            }
 })
 
 ReactDOM.render(<Board count={10}/>, document.getElementById('react-container'))
